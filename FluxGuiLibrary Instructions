@@ -1,1 +1,47 @@
+-- GUI Library Instruction List
 
+-- Create a new Instance with properties
+library.addItem(data)
+Arguments:
+  data.item      : string   → Class name of the instance (e.g. "Frame", "TextLabel")
+  data.parent    : Instance → Parent object to attach to
+  other keys     : any      → Applied as properties (e.g. Size, Position, Text)
+
+-- Create a ScreenGui in PlayerGui
+library.addGui(data)
+Arguments:
+  data.name         : string   → Name of the GUI (default "gui")
+  data.resetOnSpawn : boolean  → Reset GUI on respawn (default true)
+
+-- Add a UIStroke to a parent
+library.addStroke(data)
+Arguments:
+  data.thickness : number   → Stroke thickness (default 1)
+  data.color     : Color3   → Stroke color (default Color3.fromRGB(30,30,35))
+  data.mode      : Enum     → ApplyStrokeMode (default Border)
+  data.parent    : Instance → UI element to apply stroke
+
+-- Add rounded corners
+library.addCorner(data)
+Arguments:
+  data.radius : UDim     → Corner radius (default UDim.new(0,8))
+  data.parent : Instance → UI element to apply corner
+
+-- Add padding
+library.addPadding(data)
+Arguments:
+  data.top    : UDim     → Top padding (default UDim.new(0,0))
+  data.bottom : UDim     → Bottom padding (default UDim.new(0,0))
+  data.left   : UDim     → Left padding (default UDim.new(0,0))
+  data.right  : UDim     → Right padding (default UDim.new(0,0))
+  data.parent : Instance → UI element to apply padding
+
+-- Add a UIListLayout
+library.addUIList(data)
+Arguments:
+  data.padding    : UDim     → Spacing between elements (default UDim.new(0,0))
+  data.direction  : Enum     → FillDirection (default Horizontal)
+  data.hAlign     : Enum     → HorizontalAlignment (default Left)
+  data.vAlign     : Enum     → VerticalAlignment (default Top)
+  data.sort       : Enum     → SortOrder (default LayoutOrder)
+  data.parent     : Instance → UI element to apply layout
