@@ -2871,7 +2871,7 @@ if dev_mode then
 
 elseif use_test_loader then
     -- Test loader path (used for development / staging)
-    resultScript = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Khilo-123/FluxApp/refs/heads/main/autofarm?token=GHSAT0AAAAAAELJ6XZ22DMDDTR6RGB3JHFU2WRYRFQ"))()'
+    resultScript = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Khilo-123/Flux/refs/heads/main/test"))()'
 
 else
     -- Production loader (Jnkie API)
