@@ -2475,17 +2475,6 @@ function sendWebhook()
         return
     end
 
-    -- Pick the best HTTP request function available
-    local requestFunc = syn and syn.request
-        or http and http.request
-        or http_request
-        or request
-
-    if not requestFunc then
-        canSendWebhook = true
-        return
-    end
-
     lastProfit = lastProfit or 0
     lastATMs   = lastATMs or 0
 
@@ -2571,14 +2560,8 @@ function sendWebhook()
     }
 
     local body = game:GetService("HttpService"):JSONEncode(data)
---[[
+
     local ok, response = pcall(request, {
-        Url     = webhookLink,
-        Method  = "POST",
-        Headers = headers,
-        Body    = body
-    })]]
-    request({
         Url     = webhookLink,
         Method  = "POST",
         Headers = headers,
