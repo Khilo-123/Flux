@@ -4457,6 +4457,14 @@ function BreakVault()
                     end
                 end
                 task.wait(.1)
+                if Ignored:FindFirstChild("Handle") and Ignored:FindFirstChild("Handle"):FindFirstChild("Pin") then
+                    local gred = Ignored:FindFirstChild("Handle")
+                    local weld = Instance.new("WeldConstraint")
+                    weld.Part0 = VaultDoor
+                    weld.Part1 = gred
+                    weld.parent = workspace
+                    
+                end
                 
                 -- Equip drum safely
                 if drum then
