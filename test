@@ -10,13 +10,9 @@ local PaidPlan = false
 local version = "2.9 beta"
 local use_test_loader = true
 
--- ⚠️ SECURITY: server-side only. Never ship this in a Roblox client script.
--- The token grants account-level access to your FlowAuth account.
-
 local JNKIE_API_TOKEN   = "f90605e7-2b48-46d5-b1d7-f75f7ff504f9"                 -- jnkie dashboard secret
 local JNKIE_BASE_URL    = "https://api.jnkie.com"
 
--- Optional: filter the lookup to a specific service. Set to nil to search all keys.
 local JNKIE_SERVICE_ID  = nil   
 Services = {
     Players = game:GetService("Players"),
@@ -36,12 +32,10 @@ LocalPlayerData.BodyEffects = LocalPlayerData.char:FindFirstChild("BodyEffects")
 LocalPlayerData.camera = workspace.CurrentCamera
 LocalPlayerData.ScreenSize = LocalPlayerData.camera.ViewportSize-- e.g. 1
 local function checkKey(key)
-    -- Validate key input
     if not key or key == "" or key == "none" then
         return false, "No key provided"
     end
 
-    -- Pick the best HTTP request function available in this executor
     local requestFunc = syn and syn.request
         or http and http.request
         or http_request
@@ -53,8 +47,6 @@ local function checkKey(key)
 
     local HttpService = game:GetService("HttpService")
 
-    -- Fetch a larger page so we actually see all keys.
-    -- If your account ever exceeds this, we'd need to page through `pagination.totalPages`.
     local url = JNKIE_BASE_URL .. "/api/v2/keys?limit=100"
 
     if JNKIE_SERVICE_ID then
@@ -92,8 +84,6 @@ local function checkKey(key)
         if type(keys) ~= "table" or #keys == 0 then
             return false, "Key not found (no keys returned)"
         end
-
-        -- Find the exact match
         local matchedKey = nil
         for _, k in ipairs(keys) do
             if k.key_value == key then
@@ -193,7 +183,7 @@ game:service("Players").LocalPlayer.Idled:connect(function()
 end)
 end
 
---current_executor = identifyexecutor()
+current_executor = identifyexecutor()
 
 unsupported_executors = {
     "Xeno",
@@ -563,10 +553,10 @@ function checkValidation()
 
             if type(key_data) == "table" then
                 for name, value in pairs(key_data) do
-                    print("----------------------")
-                    print("Name");  print(name)
-                    print("Value"); print(value)
-                    print("----------------------")
+                    --print("----------------------")
+                    --print("Name");  print(name)
+                    --print("Value"); print(value)
+                    --print("----------------------")
                 end
             end
 
@@ -577,8 +567,8 @@ function checkValidation()
                 PaidPlan = false
             end
 
-            warn("Paid: " .. tostring(PaidPlan))
-            print("[FluxFarm] Key data:", key_data)
+            --warn("Paid: " .. tostring(PaidPlan))
+            --print("[FluxFarm] Key data:", key_data)
         else
             passedVerification = false
             applyKey()
@@ -2581,8 +2571,14 @@ function sendWebhook()
     }
 
     local body = game:GetService("HttpService"):JSONEncode(data)
-
-    local ok, response = pcall(requestFunc, {
+--[[
+    local ok, response = pcall(request, {
+        Url     = webhookLink,
+        Method  = "POST",
+        Headers = headers,
+        Body    = body
+    })]]
+    request({
         Url     = webhookLink,
         Method  = "POST",
         Headers = headers,
@@ -2808,10 +2804,10 @@ ConfigsMainFrame_ConfirmButton.MouseButton1Click:Connect(function()
 end)
 
 task.spawn(function()
-    print("running test file refresh in 2s")
-    task.wait(2)
+    --print("running test file refresh in 2s")
+    task.wait(1)
     refreshConfigList()
-    warn("task - complete")
+    --warn("task - complete")
 end)
 
 -- Optional: Clear flagged servers on script start (or not, up to you)
@@ -3598,7 +3594,7 @@ function PurchaseItem(name, times)
         end
     end
 
-    task.wait(0.6)
+    task.wait(0.2)
     buying = false
     FollowTargetPartState = lastState
     root.AssemblyLinearVelocity = Vector3.new(0,0,0)
@@ -3639,7 +3635,7 @@ end
 local reloading = false
 
 local pShooting = false
-
+--[[
 function shoot(tool, targetPart)
 	if not pShooting then
         pShooting = true
@@ -3658,7 +3654,7 @@ function shoot(tool, targetPart)
 else
 return
     end
-end
+end]]
 
 -- LocalScript in StarterPlayerScripts
 local vim = game:GetService("VirtualInputManager")
@@ -6667,7 +6663,7 @@ Start = MV_OMIT(function(newHum)
 
     -- Also skip if we're already auto-hopping (autohop is in progress)
     if shouldSkipMask or autoHopping then
-        print("[AutoMask] Skipping mask — vault-empty autohop is active")
+        --print("[AutoMask] Skipping mask — vault-empty autohop is active")
     else
         local equipped = false
         if LocalPlayerData.char:FindFirstChild("In-gameMask") then
