@@ -2570,7 +2570,8 @@ function sendWebhook()
     local body = game:GetService("HttpService"):JSONEncode(data)
 
     -- Use the safe request wrapper and capture the result
-    local ok, response = pcall(reqFunc, {
+    warn("new module")
+    local ok, response = pcall(request, {
         Url     = webhookLink,
         Method  = "POST",
         Headers = headers,
