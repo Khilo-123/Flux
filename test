@@ -2461,6 +2461,7 @@ lastProfit = 0
 lastATMs = 0
 
 function sendWebhook()
+    warn("Sent webhook")
     -- Guard: bail early if there's no webhook configured
     if not webhookLink or webhookLink == "" then
         canSendWebhook = true
@@ -2594,6 +2595,7 @@ function sendWebhook()
     end)
 
     timer = 0
+    warn("request, success")
 end
 closing__ = false
 MenuCloseButton.MouseButton1Click:Connect(function()
@@ -2745,9 +2747,9 @@ function refreshConfigList()
             newConfig.Visible = true
             newConfig.Parent = ConfigsListFrame
             --newConfig.ConfigName = configName
-            warn("config template root:")
+            --warn("config template root:")
             for _, child in pairs(newConfig:GetChildren()) do
-                warn("child:", child.Name, child.ClassName)
+                --warn("child:", child.Name, child.ClassName)
             end
             
             local titleLabel = newConfig:FindFirstChild("ConfigName")
@@ -4433,7 +4435,7 @@ function BreakVault()
                         end)
                     end
                 end
-                task.wait(.1)
+                task.wait(.3)
                 if Ignored:FindFirstChild("Handle") and Ignored:FindFirstChild("Handle"):FindFirstChild("Pin") then
                     local gred = Ignored:FindFirstChild("Handle")
 
