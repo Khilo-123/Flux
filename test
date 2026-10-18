@@ -1791,6 +1791,13 @@ Position=UDim2.new(0,5,0,0)
 Title:SetAttribute("AlwaysHidden", true)
 MainContent.Spacer2:SetAttribute("AlwaysHidden", true)
 
+task.spawn(function()
+    while true do
+        webhookLink = lib:readBox("box.webhook") or ""
+        task.wait(.25)
+    end
+end)
+
 -- SAVE CONFIG
 --[[
 SaveConfigFrame = lib:addItem("Frame", {
