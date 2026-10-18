@@ -2477,11 +2477,7 @@ function sendWebhook()
     end
 
     -- Pick the best HTTP request function available (fallback if request is nil)
-    local reqFunc = request or http_request or (syn and syn.request) or (http and http.request)
-    if not reqFunc then
-        canSendWebhook = true
-        return
-    end
+    --local reqFunc = request or http_request or (syn and syn.request) or (http and http.request)
 
     lastProfit = lastProfit or 0
     lastATMs   = lastATMs or 0
