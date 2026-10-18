@@ -2466,6 +2466,7 @@ function sendWebhook()
     if not webhookLink or webhookLink == "" then
         canSendWebhook = true
         warn('non delivered')
+        warn("webhook: "..tostring(webhookLink))
         return
     end
 
