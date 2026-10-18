@@ -406,7 +406,7 @@ function applyKey()
                         Text = "Incorrect key.",
                         state = 2
                     })
-                    warn(result .. " | Key: " .. key_box.Text .. " | Token: " .. tostring(token))
+                    --warn(result .. " | Key: " .. key_box.Text .. " | Token: " .. tostring(token))
                 end
             else
                 notife({
