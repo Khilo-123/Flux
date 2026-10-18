@@ -1523,15 +1523,7 @@ MainContent = {
             Text="Webhook",
             Layout=0
         },
-        --[[
-        ["spacer"] = {
-            type="custom",
-            item="Frame",
-            Size=UDim2.new(1,0,0,10),
-            BackgroundTransparency=1,
-            Attributes={{"AlwaysHidden", true}},
-            LayoutOrder=1
-        },]]
+        --
         ["Interval"] = {
             type="Slider",
             ID="slider.webhook.interval",
@@ -1791,15 +1783,12 @@ Position=UDim2.new(0,5,0,0)
 Title:SetAttribute("AlwaysHidden", true)
 MainContent.Spacer2:SetAttribute("AlwaysHidden", true)
 
-task.spawn(function()
-    task.wait(6)
-    warn("started")
-    warn(webhookLinkFrame.Name)
-    --[[
-    while true do
-        webhookLink = lib:readBox("box.webhook")
-        task.wait(.25)
-    end]]
+lib:OnBoxChanged(function(id, text)
+    if id == "box.webhook" then
+        webhookLink = text
+    elseif id == "box.custombg.id" then
+        custombackgroundid = text
+    end
 end)
 
 -- SAVE CONFIG
