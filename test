@@ -1499,7 +1499,7 @@ end
 mainTab = lib:addTab(leftPanel,{
     text="Main"
 })
-
+webhookLinkFrame = nil
 -- >(Main Content)
 
 MainContent = {
@@ -1517,7 +1517,7 @@ MainContent = {
         LayoutOrder = 1,
     }, mainTab["c"]),
     Webhook = lib:addCheck(mainTab["c"], "check.webhook", {Text="Webhook", Layout=3, gui=gui}, {enabled=true, Options = {
-        ["WebhookLink"] = {
+        webhookLinkFrame = {
             type="Box",
             ID = "box.webhook",
             Text="Webhook",
@@ -1792,11 +1792,14 @@ Title:SetAttribute("AlwaysHidden", true)
 MainContent.Spacer2:SetAttribute("AlwaysHidden", true)
 
 task.spawn(function()
-    task.wait(3)
+    task.wait(6)
+    warn("started")
+    warn(webhookLinkFrame.Name)
+    --[[
     while true do
         webhookLink = lib:readBox("box.webhook")
         task.wait(.25)
-    end
+    end]]
 end)
 
 -- SAVE CONFIG
