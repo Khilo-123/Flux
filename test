@@ -2639,8 +2639,10 @@ MinimizeReturnButton.MouseButton1Click:Connect(function()
 end)
 
 lib:OnButtonClicked(function(id)
+    warn("fart1")
     if id == "button.testwebhook" then
         if webhookLink ~= "" or webhookLink ~= "..." then
+            warn("fart2")
             sendWebhook()
         end
     end
