@@ -2638,7 +2638,7 @@ MinimizeReturnButton.MouseButton1Click:Connect(function()
     MinimizedFrame.Visible = false
 end)
 
-lib:ButtonClicked(function(id)
+lib:OnButtonClicked(function(id)
     warn("fart1")
     if id == "button.testwebhook" then
         if webhookLink ~= "" or webhookLink ~= "..." then
