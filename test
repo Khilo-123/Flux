@@ -29,12 +29,12 @@ end
 
 function module.ExpandHitbox()
 	
-	local size = Vector3.new(5,5,5)
+	--local size = Vector3.new(5,5,5)
 	for _,plr in pairs(players:GetChildren()) do
 		if plr and plr:IsA("Player") and plr.Character then
 			local plrChar = plr.Character
 			local root = plrChar:FindFirstChild("HumanoidRootPart")
-			root.Size = size
+			root.Size = Vector3.new(5,5,5)
 			root.Transparency = 0
 		end
 	end
