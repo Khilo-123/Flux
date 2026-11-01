@@ -27,14 +27,14 @@ function module.UpdatePlayerData(newCharacter)
 	localRoot = newCharacter:FindFirstChild("HumanoidRootPart")
 end
 
-function module.ExpandHitbox()
+function module.ExpandHitbox(size)
 	
 	--local size = Vector3.new(5,5,5)
 	for _,plr in pairs(players:GetChildren()) do
-		if plr and plr:IsA("Player") and plr.Character then
+		if plr and plr:IsA("Player") and plr.Character and plr ~= localPlayer then
 			local plrChar = plr.Character
 			local root = plrChar:FindFirstChild("HumanoidRootPart")
-			root.Size = Vector3.new(5,5,5)
+			root.Size = size or Vector3.new(10,10,10)
 			root.Transparency = 0
 		end
 	end
