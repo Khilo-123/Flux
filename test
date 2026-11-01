@@ -1,7 +1,7 @@
 
 
 --> roblox-help-functions
-local t = os.date("*t")
+t = os.date("*t")
 --print(string.format("%04d/%02d/%02d", t.year, t.month, t.day))
 
 --
@@ -16,26 +16,50 @@ public.FluxModule[sessionID] = {
 	
 }
 
-local players = game:GetService("Players")
+players = game:GetService("Players")
 
-local localPlayer = players.LocalPlayer
-local localCharacter = localPlayer.Character
-local localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
+localPlayer = players.LocalPlayer
+localCharacter = localPlayer.Character
+localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
 
 function module.UpdatePlayerData(newCharacter)
 	localCharacter = newCharacter
 	localRoot = newCharacter:FindFirstChild("HumanoidRootPart")
 end
 
+expandHitboxSession = {activated=false,rootSize=nil}
 function module.ExpandHitbox(size)
+	expandHitboxSession.activated=true
 	
-	--local size = Vector3.new(5,5,5)
+	local function expand(plr)
+		local plrChar = plr.Character
+		local root = plrChar:FindFirstChild("HumanoidRootPart")
+		expandHitboxSession.rootSize = root.Size
+		task.wait()
+		root.Size = size or Vector3.new(10,10,10)
+		root.Transparency = .5
+	end
+	
 	for _,plr in pairs(players:GetChildren()) do
 		if plr and plr:IsA("Player") and plr.Character and plr ~= localPlayer then
-			local plrChar = plr.Character
-			local root = plrChar:FindFirstChild("HumanoidRootPart")
-			root.Size = size or Vector3.new(10,10,10)
-			root.Transparency = 0
+			expand(plr)
+		end
+	end
+	players.PlayerAdded:Connect(function(plr)
+		if expandHitboxSession.activated then
+			expand(plr)
+			
+		end
+	end)
+end
+function module.ExpandHitbox_()
+	if not expandHitboxSession.activated then return end
+	expandHitboxSession.activated = false
+	task.wait()
+	for _, plr in pairs(players:GetChildren()) do
+		if plr and plr:IsA("Player") and plr.Character and plr ~= localPlayer then
+			local root = plr.Character:FindFirstChild("HumanoidRootPart")
+			root.Size = expandHitboxSession.rootSize
 		end
 	end
 end
