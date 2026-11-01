@@ -1,1 +1,42 @@
-print("hello flux")
+
+
+--> roblox-help-functions
+local t = os.date("*t")
+--print(string.format("%04d/%02d/%02d", t.year, t.month, t.day))
+
+--
+
+local module = {}
+public = {}
+public.FluxModule = {}
+
+local sessionID = math.random(1,9999) + ((t.month * t.sec) / t.hour)
+
+public.FluxModule[sessionID] = {
+	
+}
+
+local players = game:GetService("Players")
+
+local localPlayer = players.LocalPlayer
+local localCharacter = localPlayer.Character
+local localRoot = localCharacter:FindFirstChild("HumanoidRootPart")
+
+function module.UpdatePlayerData(newCharacter)
+	localCharacter = newCharacter
+	localRoot = newCharacter:FindFirstChild("HumanoidRootPart")
+end
+
+function module.ExpandHitbox(data)
+	local size = data.size or Vector3.new(5,5,5)
+	for _,plr in pairs(players:GetChildren()) do
+		if plr and plr:IsA("Player") and plr.Character then
+			local plrChar = plr.Character
+			local root = plrChar:FindFirstChild("HumanoidRootPart")
+			root.Size = size
+			root.Transparency = 0
+		end
+	end
+end
+
+return module
