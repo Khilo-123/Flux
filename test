@@ -36,7 +36,7 @@ function module.ExpandHitbox(size)
 		local root = plrChar:FindFirstChild("HumanoidRootPart")
 		expandHitboxSession.rootSize = root.Size
 		task.wait()
-		root.Size = size or Vector3.new(10,10,10)
+		root.Size = Vector3.new(size,size,size) or Vector3.new(10,10,10)
 		root.Transparency = .5
 	end
 	
