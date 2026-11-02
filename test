@@ -3,8 +3,7 @@ earlyMSG = [[
 	
 Using Flux API 2026
 version: alpha
-build: 2
-re
+build: 3
 ]]
 warn(earlyMSG)
 --> roblox-help-functions
@@ -49,6 +48,7 @@ function module.ExpandHitbox(size)
 		local root = plrChar:FindFirstChild("HumanoidRootPart")
 		expandHitboxSession.rootSize = root.Size
 		task.wait()
+		root.CanCollide = false
 		
 		root.Transparency = .5
 		if finalSize then
@@ -61,6 +61,7 @@ function module.ExpandHitbox(size)
 	for _,plr in pairs(players:GetChildren()) do
 		if plr and plr:IsA("Player") and plr.Character and plr ~= localPlayer then
 			expand(plr)
+			task.wait(.001)
 		end
 	end
 	players.PlayerAdded:Connect(function(plr)
@@ -78,6 +79,7 @@ function module.ExpandHitbox_()
 		if plr and plr:IsA("Player") and plr.Character and plr ~= localPlayer then
 			local root = plr.Character:FindFirstChild("HumanoidRootPart")
 			root.Size = expandHitboxSession.rootSize
+			root.CanCollide = true
 		end
 	end
 end
