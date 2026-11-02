@@ -1,5 +1,9 @@
-
-
+-- stand by
+earlyMSG = [[
+Using Flux API 2026
+version: alpha
+]]
+warn(earlyMSG)
 --> roblox-help-functions
 t = os.date("*t")
 --print(string.format("%04d/%02d/%02d", t.year, t.month, t.day))
@@ -27,9 +31,11 @@ function module.UpdatePlayerData(newCharacter)
 	localRoot = newCharacter:FindFirstChild("HumanoidRootPart")
 end
 
-expandHitboxSession = {activated=false,rootSize=nil}
+expandHitboxSession = {activated=false,rootSize=nil,current=0}
 function module.ExpandHitbox(size)
 	expandHitboxSession.activated=true
+	expandHitboxSession.current += 1
+	local newCurrent = expandHitboxSession.current
 	
 	local function expand(plr)
 		local plrChar = plr.Character
@@ -47,7 +53,7 @@ function module.ExpandHitbox(size)
 		end
 	end
 	players.PlayerAdded:Connect(function(plr)
-		if expandHitboxSession.activated then
+		if expandHitboxSession.activated and expandHitboxSession.current == newCurrent then
 			expand(plr)
 			
 		end
