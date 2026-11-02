@@ -3,8 +3,7 @@ earlyMSG = [[
 	
 Using Flux API 2026
 version: alpha
-build: 3
-]]
+build: 4]]
 warn(earlyMSG)
 --> roblox-help-functions
 t = os.date("*t")
@@ -98,6 +97,7 @@ function module.listPlayers(includeLocal)
 		data.root = plr.Character:FindFirstChild("HumanoidRootPart")
 		data.humanoid = data.character:FindFirstChild("Humanoid")
 		data.displayName = data.humanoid.DisplayName
+		data.accountAge = plr.AccountAge
 		
 		table.insert(result,data)
 	end
@@ -112,4 +112,24 @@ function module.listPlayers(includeLocal)
 	end
 	return result
 end
+
+function module.getPlayerType(target)
+	local tType = "?"
+	if target:IsA("Model") and target:FindFirstChild("Humanoid") and players:GetPlayerFromCharacter(target) then tType = "c" end
+	if target:IsA("Player") and target.Character then tType="p"end
+	return tType
+end
+
+function module.getPosition(target)
+	local tType = module.getPlayerType(target)
+	if tType == "c" then
+		local root = target:FindFirstChild("HumanoidRootPart")
+		return root.Position
+	elseif tType == "p" then
+		local char = target.Character
+		local root = char:FindFirstChild("HumanoidRootPart")
+		return root.Position
+	end
+end
+
 return module
