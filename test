@@ -3,7 +3,7 @@ earlyMSG = [[
 	
 Using Flux API 2026
 version: alpha
-build: 3 re
+build: 3
 ]]
 warn(earlyMSG)
 --> roblox-help-functions
@@ -65,10 +65,13 @@ function module.ExpandHitbox(size)
 		end
 	end
 	players.PlayerAdded:Connect(function(plr)
-		if expandHitboxSession.activated and expandHitboxSession.current == newCurrent then
-			expand(plr)
-			
-		end
+		
+		plr.CharacterAdded:Connect(function()
+			if expandHitboxSession.activated and expandHitboxSession.current == newCurrent then
+				expand(plr)
+
+			end
+		end)
 	end)
 end
 function module.ExpandHitbox_()
@@ -84,4 +87,29 @@ function module.ExpandHitbox_()
 	end
 end
 
+function module.listPlayers(includeLocal)
+	local result = {}
+	local function register(plr,index)
+		local data = {}
+		data.index = index
+		data.instance = plr
+		data.name = plr.Name
+		data.character = plr.Character
+		data.root = plr.Character:FindFirstChild("HumanoidRootPart")
+		data.humanoid = data.character:FindFirstChild("Humanoid")
+		data.displayName = data.humanoid.DisplayName
+		
+		table.insert(result,data)
+	end
+	for i,plr in pairs(players:GetChildren()) do
+		if plr and plr:IsA("Player") then
+			if plr ~= localPlayer then
+				register(plr,i)
+			elseif plr == localPlayer and includeLocal then
+				register(plr,i)
+			end
+		end
+	end
+	return result
+end
 return module
