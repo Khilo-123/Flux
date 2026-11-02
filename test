@@ -3,7 +3,7 @@ earlyMSG = [[
 	
 Using Flux API 2026
 version: alpha
-build: 4]]
+build: 4.5]]
 warn(earlyMSG)
 --> roblox-help-functions
 t = os.date("*t")
@@ -104,7 +104,12 @@ function module.listPlayers(includeLocal)
 	for i,plr in pairs(players:GetChildren()) do
 		if plr and plr:IsA("Player") then
 			if plr ~= localPlayer then
-				register(plr,i)
+				
+				if not includeLocal then
+					register(plr,i-1)
+				else
+					register(plr,i)
+				end
 			elseif plr == localPlayer and includeLocal then
 				register(plr,i)
 			end
