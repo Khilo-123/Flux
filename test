@@ -3,6 +3,7 @@ earlyMSG = [[
 	
 Using Flux API 2026
 version: alpha
+build: 2
 ]]
 warn(earlyMSG)
 --> roblox-help-functions
@@ -37,14 +38,23 @@ function module.ExpandHitbox(size)
 	expandHitboxSession.activated=true
 	expandHitboxSession.current += 1
 	local newCurrent = expandHitboxSession.current
+	local finalSize
+	if size then
+		finalSize = Vector3.new(size,size,size)
+	end
 	
 	local function expand(plr)
 		local plrChar = plr.Character
 		local root = plrChar:FindFirstChild("HumanoidRootPart")
 		expandHitboxSession.rootSize = root.Size
 		task.wait()
-		root.Size = Vector3.new(10,10,10)
+		
 		root.Transparency = .5
+		if finalSize then
+			root.Size = finalSize
+		else
+			root.Size = Vector3.new(10,10,10)
+		end
 	end
 	
 	for _,plr in pairs(players:GetChildren()) do
