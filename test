@@ -1,5 +1,6 @@
 -- stand by
 earlyMSG = [[
+	
 Using Flux API 2026
 version: alpha
 ]]
@@ -42,7 +43,6 @@ function module.ExpandHitbox(size)
 		local root = plrChar:FindFirstChild("HumanoidRootPart")
 		expandHitboxSession.rootSize = root.Size
 		task.wait()
-		warn(size)
 		root.Size = Vector3.new(size,size,size) or Vector3.new(10,10,10)
 		root.Transparency = .5
 	end
